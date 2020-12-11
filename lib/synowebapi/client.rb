@@ -7,10 +7,12 @@ module SYNOWebAPI
   class Client
     attr_reader :url, :api, :session_id, :session_name
 
+    TIMEOUT = ENV.fetch('SYNOLOGY_TIMEOUT') { '60' }.to_i
+
     def initialize(url)
       @url = url
       @session_id = @session_name = ''
-      @conn = Faraday.new(:url => @url) do |f|
+      @conn = Faraday.new(:url => @url, request: { timeout: TIMEOUT }) do |f|
         f.request(:url_encoded)
         f.response(:json)
         f.adapter(Faraday.default_adapter)
