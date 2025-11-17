@@ -40,5 +40,4 @@ client.disconnect
 
 * httpclient
 * faraday
-* faraday-middleware
 
